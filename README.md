@@ -1,4 +1,4 @@
-# 📉 Radar de Preços - Chrome Extension (Manifest V3)
+#  Radar de Preços - Chrome Extension (Manifest V3)
 
 <p align="center">
   <img src="logo.png" width="128" height="128" alt="Radar de Preços Logo" />
@@ -8,19 +8,19 @@ O **Radar de Preços** é uma extensão de navegador moderna e de alto desempenh
 
 ---
 
-## 🌟 Principais Funcionalidades
+##  Principais Funcionalidades
 
-- **🔍 Seleção de Preços Interativa**: Navegue em qualquer loja e clique diretamente no valor do preço usando o realce visual (overlay azul) para começar a monitorar.
-- **🏷️ Comparação Multi-site**: Agrupe vários links de lojas diferentes sob um mesmo grupo de produto (ex: "PlayStation 5") para manter o seu painel limpo e organizado.
-- **🏆 Destaque da Melhor Oferta**: O dashboard exibe instantaneamente qual site oferece o menor preço no momento com um selo dinâmico.
-- **📊 Design Premium em Glassmorphism**: Interface do usuário moderna com efeito de vidro acrílico, tema escuro e micro-animações para quedas de preços.
-- **📈 Histórico de Preços**: Clique em qualquer produto para expandir o painel e ver a tabela com o histórico detalhado de alterações, datas de checagem e links diretos.
-- **🔔 Notificações Nativas**: Receba alertas nativos na área de trabalho quando uma loja reduzir o preço do produto. Clique no alerta para ir diretamente à loja.
-- **⚙️ Frequência Customizável**: Ajuste a periodicidade do scanner em segundo plano (ex: a cada 15m, 1h, 4h, etc.).
+- ** Seleção de Preços Interativa**: Navegue em qualquer loja e clique diretamente no valor do preço usando o realce visual (overlay azul) para começar a monitorar.
+- ** Comparação Multi-site**: Agrupe vários links de lojas diferentes sob um mesmo grupo de produto (ex: "PlayStation 5") para manter o seu painel limpo e organizado.
+- ** Destaque da Melhor Oferta**: O dashboard exibe instantaneamente qual site oferece o menor preço no momento com um selo dinâmico.
+- ** Design Premium em Glassmorphism**: Interface do usuário moderna com efeito de vidro acrílico, tema escuro e micro-animações para quedas de preços.
+- ** Histórico de Preços**: Clique em qualquer produto para expandir o painel e ver a tabela com o histórico detalhado de alterações, datas de checagem e links diretos.
+- ** Notificações Nativas**: Receba alertas nativos na área de trabalho quando uma loja reduzir o preço do produto. Clique no alerta para ir diretamente à loja.
+- ** Frequência Customizável**: Ajuste a periodicidade do scanner em segundo plano (ex: a cada 15m, 1h, 4h, etc.).
 
 ---
 
-## 🛠️ Arquitetura Técnica (Manifest V3)
+##  Arquitetura Técnica (Manifest V3)
 
 A extensão é estruturada utilizando as melhores práticas modernas recomendadas pela equipe do Google Chrome:
 - **`manifest.json`**: Configurações de segurança e permissões declaradas rigorosamente sob demanda (`storage`, `alarms`, `notifications`, `offscreen`, `scripting`).
@@ -30,7 +30,7 @@ A extensão é estruturada utilizando as melhores práticas modernas recomendada
 
 ---
 
-## 🚀 Como Instalar no Google Chrome
+##  Como Instalar no Google Chrome
 
 Siga as instruções abaixo para testar a extensão localmente no seu computador:
 
@@ -43,7 +43,7 @@ Siga as instruções abaixo para testar a extensão localmente no seu computador
 
 ---
 
-## 🧪 Como Testar as Notificações de Queda de Preço
+##  Como Testar as Notificações de Queda de Preço
 
 Como a checagem é feita de forma assíncrona em segundo plano, você pode simular uma queda de preço imediata para testar as notificações nativas:
 
