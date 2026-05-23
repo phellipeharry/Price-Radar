@@ -38,7 +38,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // Monitor notification clicks to open the specific store page
 chrome.notifications.onClicked.addListener((notificationId) => {
   chrome.storage.local.get({ products: [] }, (result) => {
-    // Find the source that matches the notificationId
     for (let product of result.products) {
       const source = product.sources.find(s => s.id === notificationId);
       if (source) {
@@ -68,7 +67,7 @@ function setupAlarm(intervalMinutes) {
 }
 
 /**
- * Open or connect to offscreen document
+ * Open or connect to offscreen document with safety startup delay
  */
 async function setupOffscreenDocument() {
   const contexts = await chrome.runtime.getContexts({
@@ -92,6 +91,9 @@ async function setupOffscreenDocument() {
   
   await creatingOffscreenPromise;
   creatingOffscreenPromise = null;
+  
+  // Wait a 500ms safety buffer for offscreen script environment to bind listeners
+  await new Promise(resolve => setTimeout(resolve, 500));
 }
 
 /**
@@ -104,6 +106,27 @@ async function closeOffscreenDocument() {
   
   if (contexts.length > 0) {
     await chrome.offscreen.closeDocument();
+  }
+}
+
+/**
+ * Robust wrapper to send messages to the offscreen document with retries for race conditions
+ * @param {object} message 
+ * @param {number} retries 
+ * @param {number} delay 
+ */
+async function sendMessageToOffscreen(message, retries = 5, delay = 200) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await chrome.runtime.sendMessage(message);
+      if (response !== undefined) {
+        return response;
+      }
+    } catch (err) {
+      console.warn(`Tentativa ${i + 1} de envio para offscreen falhou. Aguardando... Erro: ${err.message}`);
+      if (i === retries - 1) throw err;
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
   }
 }
 
@@ -130,8 +153,8 @@ async function checkAllPrices() {
       console.log(`Verificando: "${product.title}" no site ${source.domain} (${source.url})`);
       
       try {
-        // Send scraping request to offscreen
-        const scrapeResponse = await chrome.runtime.sendMessage({
+        // Send scraping request using the robust retry wrapper
+        const scrapeResponse = await sendMessageToOffscreen({
           target: 'offscreen-doc',
           action: 'scrape-price',
           url: source.url,
